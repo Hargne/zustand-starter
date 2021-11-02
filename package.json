@@ -1,0 +1,12 @@
+{
+  "name": "zustand-starter",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Hargne/zustand-starter.git",
+  "author": "Johan Hargne <johan.hargne@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "immer": "^9.0.6",
+    "zustand": "^3.6.2"
+  }
+}
