@@ -19,25 +19,15 @@ export const useStore = zustand<RootStore>(
 );
 
 /**
- * Hook that exposes all methods available for a specific store entry
+ * High order function which exposes all methods available for a specific store entry
  */
-export function useStoreMethods(entry: keyof RootStore) {
+export function getStoreMethods(entry: keyof RootStore) {
   return useStore((state) => state[entry].methods);
 }
 
 /**
- * All selectors
+ * All available selectors
  */
-const storeSelectors = {
+export const storeSelectors: StoreSelectors = {
   example: exampleSelectors,
 };
-
-/**
- * Hook that returns a memoized selector of a given store
- */
-export function useStoreSelector<
-  T extends keyof typeof storeSelectors,
-  S extends keyof typeof storeSelectors[T]
->(entry: T, selectorName: S) {
-  return useStore(storeSelectors[entry][selectorName] as any);
-}
