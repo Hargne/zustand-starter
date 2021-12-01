@@ -8,6 +8,6 @@ export const fetchList = (actions: StoreActions) => async () => {
     });
     return Promise.resolve();
   } catch (error) {
-    return Promise.reject();
+    return Promise.reject(error);
   }
 };
