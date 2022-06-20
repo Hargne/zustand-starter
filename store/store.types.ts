@@ -1,24 +1,11 @@
-import { GetState } from "zustand";
-
-import { ExampleStoreProps } from "./example/example";
+import { GetState, SetState } from "zustand";
+import example from "./example/example.store";
 
 export interface RootStoreProps {
-  example: ExampleStoreProps;
-}
-
-export interface StoreEntryProps<
-  S = { [key: string]: any },
-  M = { [key: string]: (...args: any) => any },
-  L = { [key: string]: (store: RootStoreProps) => any }
-> {
-  state: S;
-  methods: M;
-  selectors: L;
+  example: ReturnType<typeof example>;
 }
 
 export interface StoreActionProps {
-  set: (fn: (state: RootStoreProps) => void) => void;
+  set: SetState<RootStoreProps>;
   get: GetState<RootStoreProps>;
 }
-
-export type UnprocessedStoreEntryProps = StoreEntryProps;
