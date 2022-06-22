@@ -1,7 +1,7 @@
 {
   "name": "zustand-starter",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/store.ts",
   "repository": "https://github.com/Hargne/zustand-starter.git",
   "author": "Johan Hargne <johan.hargne@gmail.com>",
   "license": "MIT",

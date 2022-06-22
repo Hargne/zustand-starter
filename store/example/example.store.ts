@@ -1,22 +1,26 @@
 import { RootStoreProps, StoreActionProps } from "../store.types";
-import exampleMethods from "./example.methods";
+import exampleMethods, { sortExampleItems } from "./example.methods";
+import { ExampleItem } from "./example.types";
 
-interface ExampleStateProps {
-  list: string[];
-}
-const state: ExampleStateProps = {
+const STORE_KEY = "example";
+
+const state: {
+  list: ExampleItem[];
+} = {
   list: [],
 };
 
 const selectors = {
-  sortedList: (store: RootStoreProps): string[] =>
-    store.example.state.list.slice().sort(),
+  sortedList: (store: RootStoreProps): ExampleItem[] =>
+    sortExampleItems(store[STORE_KEY].state.list),
 };
 
 const exampleStore = (actions: StoreActionProps) => ({
-  state,
-  selectors,
-  methods: exampleMethods(actions),
+  [STORE_KEY]: {
+    state,
+    selectors,
+    methods: exampleMethods(actions),
+  },
 });
 
 export default exampleStore;

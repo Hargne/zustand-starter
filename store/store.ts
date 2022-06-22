@@ -2,12 +2,12 @@ import zustand from "zustand";
 import { devtools } from "zustand/middleware";
 
 import exampleStore from "./example/example.store";
-import { RootStoreProps } from "./store.types";
+import { RootStoreProps, StoreSelector } from "./store.types";
 
 // Main hook to consume the store
-const useStore = zustand<RootStoreProps>(
+export const useStore = zustand<RootStoreProps>(
   devtools((set, get) => ({
-    example: exampleStore({ set, get }),
+    ...exampleStore({ set, get }),
   }))
 );
 
@@ -18,12 +18,15 @@ export const useStoreSelector = <
 >(
   entry: E,
   selector: S
-) =>
+): ReturnType<StoreSelector & RootStoreProps[E]["selectors"][S]> =>
   useStore((store) => {
     const selectors = store[entry].selectors;
-    return selectors[selector as keyof typeof selectors](store);
+    return (selectors[selector as keyof typeof selectors] as StoreSelector)(
+      store
+    );
   });
 
 // Hook to consume a list of methods from a given store
-export const useStoreMethods = (entry: keyof RootStoreProps) =>
-  useStore((store) => store[entry].methods);
+export const useStoreMethods = <E extends keyof RootStoreProps>(
+  entry: E
+): RootStoreProps[E]["methods"] => useStore((store) => store[entry].methods);
