@@ -1,5 +1,5 @@
 import { RootStoreProps, StoreActionProps } from "../store.types";
-import exampleMethods, { sortExampleItems } from "./example.methods";
+import exampleMethods from "./example.methods";
 import { ExampleItem } from "./example.types";
 
 const STORE_KEY = "example";
@@ -10,9 +10,12 @@ const state: {
   list: [],
 };
 
+const sortItems = (list: ExampleItem[]) =>
+  list.slice().sort((a, b) => (a.content < b.content ? -1 : 1));
+
 const selectors = {
   sortedList: (store: RootStoreProps): ExampleItem[] =>
-    sortExampleItems(store[STORE_KEY].state.list),
+    sortItems(store[STORE_KEY].state.list),
 };
 
 const exampleStore = (actions: StoreActionProps) => ({
